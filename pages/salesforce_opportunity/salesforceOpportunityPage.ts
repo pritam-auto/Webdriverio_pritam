@@ -116,7 +116,7 @@ class SalesforceOpportunityPage extends Page {
     async clickMarkStageAsComplete() {
     const button = await this.getMarkStageAsComplete();
 
-    for (let i = 0; i < 8; i++) {
+    
         // Wait until button exists & is visible
         await button.waitForExist({ timeout: 15000 });
         await button.waitForDisplayed({ timeout: 15000 });
@@ -130,7 +130,7 @@ class SalesforceOpportunityPage extends Page {
         await browser.pause(1000);
 
        // await this.verifySuccessMessage('Stage changed successfully.');
-    }
+    
 }
 
 async fillCloseThisOpportunity() {
