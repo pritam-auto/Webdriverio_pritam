@@ -15,4 +15,7 @@ describe('Dropdown Tests @regression @dropdown', () => {
     expect(await dropdown.getValue()).to.equal('2');
     await browser.pause(3000);
   });
+
+  //test1
+  
 });
