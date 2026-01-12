@@ -3,7 +3,7 @@
     "opportunityName": "Test Opportunity",
     "amount": "10",
     "nextStep": "Test Next Step",
-    "stage": "Prospecting",
+    "stage": "Closed Won",
     "type": "New Customer"
   },
   "closedWonOpportunity": {
@@ -17,7 +17,7 @@
      "opportunityName": "Test Opportunity",
     "amount": "₹10.00",
     "nextStep": "Test Next Step",
-    "stage": "Prospecting",
+    "stage": "Closed Won",
     "type": "New Customer"
   }
   
