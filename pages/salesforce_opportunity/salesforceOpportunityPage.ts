@@ -23,7 +23,7 @@ class SalesforceOpportunityPage extends Page {
     }
 
     getClosedOptions() {
-        return $('//option[@label="Closed Won"]');
+        return $('//option[@label="Closed Lost"]');
     }
 
     getSaveButton() {

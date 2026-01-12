@@ -19,6 +19,13 @@
     "nextStep": "Test Next Step",
     "stage": "Closed Won",
     "type": "New Customer"
+  },
+  "verifyOpportunityValuesAfterConversion":{
+     "opportunityName": "Test Opportunity",
+    "amount": "₹10.00",
+    "nextStep": "Test Next Step",
+    "stage": "Closed Lost",
+    "type": "New Customer"
   }
   
 }

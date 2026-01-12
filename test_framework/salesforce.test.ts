@@ -76,16 +76,16 @@ describe('Salesforce Tests', () => {
     });
 
     it("opportunity conversion", async () => {
-        const testData=TestData.getOpportunityData('verifyOpportunityValues');
+        const testData=TestData.getOpportunityData('verifyOpportunityValuesAfterConversion');
         const formattedDate = formatDate();
         const opportunityPage = new SalesforceOpportunityPage();
-        // await browser.pause(5000);
-        // await opportunityPage.clickMarkStageAsComplete();
         await browser.pause(5000);
-        // await opportunityPage.fillCloseThisOpportunity();
-        // await browser.pause(5000);
-        // await opportunityPage.clickSave();
-        //await browser.pause(2000);
+        await opportunityPage.clickMarkStageAsComplete();
+        await browser.pause(5000);
+        await opportunityPage.fillCloseThisOpportunity();
+        await browser.pause(5000);
+        await opportunityPage.clickSave();
+        await browser.pause(2000);
         await opportunityPage.clickDetailsTab();
         await browser.pause(5000);
         // await opportunityPage.validateOpportunityCreated(
