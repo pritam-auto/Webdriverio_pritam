@@ -1,0 +1,24 @@
+{
+  "testOpportunity": {
+    "opportunityName": "Test Opportunity",
+    "amount": "10",
+    "nextStep": "Test Next Step",
+    "stage": "Prospecting",
+    "type": "New Customer"
+  },
+  "closedWonOpportunity": {
+    "opportunityName": "Test Opportunity",
+    "amount": "10",
+    "nextStep": "Test Next Step",
+    "stage": "Closed Won",
+    "type": "New Customer"
+  },
+  "verifyOpportunityValues":{
+     "opportunityName": "Test Opportunity",
+    "amount": "₹10.00",
+    "nextStep": "Test Next Step",
+    "stage": "Prospecting",
+    "type": "New Customer"
+  }
+  
+}

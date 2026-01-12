@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","72","enter password","handling login page","Thu Oct 09 15:27:59 IST 2025","passed","Thu Oct 09 15:27:59 IST 2025","","","",""
+"","1799","enter username","handling login page","Thu Oct 09 15:27:57 IST 2025","passed","Thu Oct 09 15:27:59 IST 2025","","","",""
+"","3709","click on login button","handling login page","Thu Oct 09 15:27:59 IST 2025","passed","Thu Oct 09 15:28:03 IST 2025","","","",""
