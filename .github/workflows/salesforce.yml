@@ -1,0 +1,97 @@
+name: Salesforce WDIO Tests
+
+on:
+  push:
+    branches: [ main, pritam_test ]   
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  wdio-tests:
+    runs-on: ubuntu-latest
+
+    env:
+      ENV: SALESFORCE
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run WebdriverIO Tests
+        run: npm run wdio
+
+
+
+        # ...existing code...
+      - name: Install dependencies
+        run: npm install
+
+      - name: Load credentials from test/config files into env
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const paths = [
+            './test_framework/test.ts',
+            './test_framework/salesforce.test.ts',
+            './resources/config/salesforce.config.ts'
+          ];
+          let content = '';
+          for (const p of paths) {
+            if (fs.existsSync(p)) content += fs.readFileSync(p, 'utf8') + '\n';
+          }
+          const envLines = [];
+
+          // Try to extract global.credentials = { username: '...', password: '...' }
+          const gCred = content.match(/global\.credentials\s*=\s*{[^}]*username\s*:\s*['"`]([^'"`]+)['"`][^}]*password\s*:\s*['"`]([^'"`]+)['"`]/s);
+          if (gCred) {
+            envLines.push(`SF_USERNAME=${gCred[1]}`);
+            envLines.push(`SF_PASSWORD=${gCred[2]}`);
+          }
+
+          // Try to extract key/value pairs like USERNAME: '...', PASSWORD: '...', MFA_SECRETKEY: '...', URL: '...', SECURITY_TOKEN: '...'
+          const kv = (key) => {
+            const re = new RegExp(key + '\\s*[:=]\\s*[\'"`]([^\'"`]+)[\'"`]', 'i');
+            const m = content.match(re);
+            return m ? m[1] : null;
+          };
+          const username = kv('USERNAME') || kv('username');
+          const password = kv('PASSWORD') || kv('password');
+          const token = kv('SECURITY_TOKEN') || kv('security_token') || kv('securityToken');
+          const url = kv('URL') || kv('url') || kv('LOGIN_URL') || kv('SF_LOGIN_URL');
+          const mfa = kv('MFA_SECRETKEY') || kv('MFA_SECRET') || kv('MFA_SECRET_KEY');
+
+          if (username && !envLines.some(l => l.startsWith('SF_USERNAME='))) envLines.push(`SF_USERNAME=${username}`);
+          if (password && !envLines.some(l => l.startsWith('SF_PASSWORD='))) envLines.push(`SF_PASSWORD=${password}`);
+          if (token) envLines.push(`SF_SECURITY_TOKEN=${token}`);
+          if (url) envLines.push(`SF_LOGIN_URL=${url}`);
+          if (mfa) envLines.push(`MFA_SECRETKEY=${mfa}`);
+
+          if (envLines.length === 0) {
+            console.error('No credentials found in repository files. Ensure credentials are present in one of:', paths.join(', '));
+            process.exit(1);
+          }
+
+          fs.appendFileSync(process.env.GITHUB_ENV, envLines.join('\\n') + '\\n');
+          console.log('Loaded credentials into GITHUB_ENV');
+          NODE
+
+      - name: Run WebdriverIO Tests
+        run: npm run wdio
+        env:
+          ENV: SALESFORCE
+
+        
+         # SF_USERNAME: ${{ secrets.SF_USERNAME }}
+          #SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+          #SF_SECURITY_TOKEN: ${{ secrets.SF_SECURITY_TOKEN }}
+          #SF_LOGIN_URL: ${{ secrets.SF_LOGIN_URL }}
+          #MFA_SECRETKEY: ${{ secrets.MFA_SECRETKEY }}
