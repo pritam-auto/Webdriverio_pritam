@@ -30,6 +30,47 @@ async getTab(tabName: string) {
     }, tab);
 }
 
+async scrollUntilOpportunityFound(opportunityName: string) {
+
+    const container = await $('//div[contains(@class,"slds-scrollable_y")]');
+
+    const opportunityXpath = `//a[@class="slds-truncate"]//span[text()="${opportunityName}"]`;
+
+    let isFound = false;
+    let previousScrollTop = -1;
+
+    while (!isFound) {
+
+        const opportunity = await $(opportunityXpath);
+        isFound = await opportunity.isExisting();
+
+        if (isFound) {
+            await opportunity.scrollIntoView();
+            break;
+        }
+
+        // Scroll the container down
+        await browser.execute((el) => {
+            el.scrollTop += 300;
+        }, container);
+
+        await browser.pause(1000);
+
+        // Stop if no more scrolling possible
+        const currentScrollTop = await browser.execute(
+            el => el.scrollTop,
+            container
+        );
+
+        if (currentScrollTop === previousScrollTop) {
+            throw new Error(`Opportunity "${opportunityName}" not found in scroll container`);
+        }
+
+        previousScrollTop = currentScrollTop;
+    }
+}
+
+
 }
 
 export default SalesforceHomePage;

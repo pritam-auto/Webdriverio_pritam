@@ -29,7 +29,7 @@ export const config = {
     
        // specs: ['./test1/**/*.js'],
 
-        specs: ['./test_framework/salesforce.test.ts'],
+        specs: ['./test_framework/salesforce.test1.ts'],
 
     
     // Patterns to exclude.
@@ -124,7 +124,12 @@ capabilities: [{
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [],
+//     services: [
+//     ['chromedriver', {
+//         chromedriverCustomPath: './node_modules/chromedriver/lib/chromedriver/chromedriver'
+//     }]
+// ],
+
 
 
     //
@@ -158,6 +163,9 @@ capabilities: [{
     }],
     ['html-nice', { outputDir: './reports/html' }]
   ],
+
+  
+
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/

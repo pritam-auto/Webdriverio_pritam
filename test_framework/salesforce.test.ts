@@ -41,7 +41,7 @@ describe('Salesforce Tests', () => {
         testData.opportunityName,
         testData.amount,
         testData.nextStep,
-        formattedDate,
+        '01/02/2027',
         testData.stage,
         testData.type
     );
@@ -66,7 +66,7 @@ describe('Salesforce Tests', () => {
             testData.opportunityName,
             testData.stage,
             testData.amount,
-            formattedDate,
+            '01/02/2027',
             testData.type,
             testData.nextStep
         );
@@ -100,7 +100,7 @@ describe('Salesforce Tests', () => {
             testData.opportunityName,
             testData.stage,
             testData.amount,
-            formattedDate,
+            '01/02/2027',
             testData.type,
             testData.nextStep
         );
