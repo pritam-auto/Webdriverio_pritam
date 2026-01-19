@@ -92,7 +92,7 @@ describe('Salesforce Tests- Error tests', () => {
     });
 
 
-    it("Click on existing opportunity nad validate the details", async () => {
+    it("Click on existing opportunity and validate the details", async () => {
            const opportunityPage = new SalesforceOpportunityPage();
            //click on opportunities tab
            const homePage = new SalesforceHomePage();
@@ -101,6 +101,19 @@ describe('Salesforce Tests- Error tests', () => {
            //scroll until 
            await homePage.scrollUntilOpportunityFound('ABC');
            await browser.pause(5000);
+
+           //click on opportunity
+           await opportunityPage.clickOnOpportunityLink('ABC');
+           await browser.pause(10000);
+           //validate opportunity details
+        //    await opportunityPage.clickDetailsTab();
+        //    await browser.pause(5000);
+        //    await opportunityPage.validateOpportunityCreated(
+        //        'ABC',
+        //        'CLosed Won',
+        //        '13/01/2026'
+        //    );
+           
 
     });
    

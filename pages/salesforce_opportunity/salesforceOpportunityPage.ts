@@ -61,6 +61,10 @@ class SalesforceOpportunityPage extends Page {
 
     }
 
+    getOpportunityLink(opportunityLink: string) {
+        return $(`(//div[@class="slds-truncate"]//div[@class="slds-grid"]//span[text()="${opportunityLink}"]//..//parent::a)[1]`);
+    }
+
     getContactRoles() {
         return $('//span[@title="Contact Roles"]//parent::a');
     }
@@ -113,8 +117,18 @@ class SalesforceOpportunityPage extends Page {
         await this.getSaveButton().click();
     }
 
-    async clickDetailsTab() {
-        await this.getDetailsTab().click();
+   async clickDetailsTab() {
+        const detailsTab = await this.getDetailsTab();
+        await detailsTab.waitForExist({ timeout: 15000 });
+        await detailsTab.waitForDisplayed({ timeout: 15000 });
+
+        // JavaScript executor click to avoid overlay/LWC issues
+        await browser.execute((el: HTMLElement) => {
+            el.scrollIntoView({ block: 'center', inline: 'center' });
+            el.click();
+        }, detailsTab);
+
+        await browser.pause(500);
     }
 
     async validateOpportunityCreated(opportunityValue?: string, stageValue?: string, amountValue?: string, closeDateValue?: string, typeValue?: string, nextStepValue?: string) {
@@ -249,6 +263,20 @@ class SalesforceOpportunityPage extends Page {
             el.scrollIntoView({ block: 'center' });
             el.click();
         }, contactLink);
+
+        await browser.pause(1000);
+    }
+
+    async clickOnOpportunityLink(opportunityName: string) {
+        const opportunityLink = await this.getOpportunityLink(opportunityName);
+        await opportunityLink.waitForExist({ timeout: 15000 });
+        await opportunityLink.waitForDisplayed({ timeout: 15000 });
+
+        // JS executor click (scrolls then clicks)
+        await browser.execute((el: HTMLElement) => {
+            el.scrollIntoView({ block: 'center' });
+            el.click();
+        }, opportunityLink);
 
         await browser.pause(1000);
     }
