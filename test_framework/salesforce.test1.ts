@@ -29,7 +29,16 @@ describe('Salesforce Tests- Error tests', () => {
         otp = generatedOtp;
         const homePage = await loginPage.enterOtp(otp);
         await browser.pause(5000);
+        //await browser.url('https://ck-qe-dev-ed.develop.lightning.force.com/lightning/page/home');
         expect(homePage.getSalesforceLogo());
+    });
+
+
+    it("go to app launcher and switch to sales app", async () => {
+        const homePage = new SalesforceHomePage();
+        await homePage.clickAppLauncher();
+        await homePage.searchAndSelectApp("Sales");
+        await browser.pause(5000);
     });
 
     it("fill opportunity without mandatory fields", async () => {
