@@ -12,8 +12,12 @@ class SalesforceHomePage {
     getSalesAppLink() {
         return $('((//h3[@class="slds-dropdown__header slds-truncate"]//following::div[1])[1]//a)[3]');
     }
+    getAppName(appName: string) {
+        return $(`//h1[@class="appName slds-context-bar__label-action slds-context-bar__app-name"]//span[text()="${appName}"]`);
+    }
 
     async clickAppLauncher() {
+        
         const appLauncher = await this.getAppLauncher();
 
         // Ensure element exists & is displayed
