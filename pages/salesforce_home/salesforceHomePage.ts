@@ -3,6 +3,54 @@ class SalesforceHomePage {
     getSalesforceLogo() {
         return $('//div[@class="slds-global-header__item"]//div[@class="slds-global-header__logo"]');
     }
+    getAppLauncher() {
+        return $('//button[@title="App Launcher"]');
+    }
+    getAppLauncherSearchInput() {
+        return $('//input[@placeholder="Search apps and items..."]');
+    }
+    getSalesAppLink() {
+        return $('((//h3[@class="slds-dropdown__header slds-truncate"]//following::div[1])[1]//a)[3]');
+    }
+
+    async clickAppLauncher() {
+        const appLauncher = await this.getAppLauncher();
+
+        // Ensure element exists & is displayed
+        await appLauncher.waitForExist({ timeout: 15000 });
+        await appLauncher.waitForDisplayed({ timeout: 15000 });
+
+        // JavaScript click (bypasses overlay & LWC issues)
+        await browser.execute((el) => {
+            el.scrollIntoView({ block: 'center', inline: 'center' });
+            el.click();
+        }, appLauncher);
+    }
+
+    async searchAndSelectApp(appName: string) {
+        const searchInput = await this.getAppLauncherSearchInput();
+
+        // Ensure element exists & is displayed
+        await searchInput.waitForExist({ timeout: 15000 });
+        await searchInput.waitForDisplayed({ timeout: 15000 });
+
+        await searchInput.setValue(appName);
+        const appLink = await this.getSalesAppLink();
+
+        // Ensure element exists & is displayed
+        await appLink.waitForExist({ timeout: 15000 });
+        await appLink.waitForDisplayed({ timeout: 15000 });
+
+        // JavaScript click (bypasses overlay & LWC issues)
+        await browser.execute((el) => {
+            el.scrollIntoView({ block: 'center', inline: 'center' });
+            el.click();
+        }, appLink);
+    }
+
+
+
+
     // Update the getTab method to handle shadow DOM
 async getTab(tabName: string) {
     const tab = await $(`//a[@title="${tabName}"]`);

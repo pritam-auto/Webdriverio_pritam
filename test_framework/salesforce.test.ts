@@ -28,6 +28,12 @@ describe('Salesforce Tests', () => {
         await browser.pause(5000);
         expect(homePage.getSalesforceLogo());
     });
+    it("go to app launcher and switch to sales app", async () => {
+        const homePage = new SalesforceHomePage();
+        await homePage.clickAppLauncher();
+        await homePage.searchAndSelectApp("Sales");
+        await browser.pause(5000);
+    });
 
     it("fill opportunity", async () => {
         const testData = TestData.getOpportunityData('testOpportunity');
