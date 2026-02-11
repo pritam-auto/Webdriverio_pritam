@@ -29,7 +29,7 @@ export const config = {
     
        // specs: ['./test1/**/*.js'],
 
-        specs: ['./test_framework/salesforce.test1.ts'],
+        specs: ['./test_framework/salesforce.test.ts'],
 
     
     // Patterns to exclude.
