@@ -11,6 +11,7 @@ class SalesforceLoginPage {
 
     getLoginButton() {
         return $('//input[@name="Login"]');
+        
     }
     getOtpField() {
         return $('//input[@id="tc"]');
