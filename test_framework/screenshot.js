@@ -12,5 +12,8 @@ describe("Taking screenshots", () => {
         // base64 screenshot
         const screenshot = await browser.takeScreenshot();
         console.log("Base64 screenshot :", screenshot);
+
+        
+
     });
 });
